@@ -19,7 +19,9 @@ app.set('view engine', 'pug');
 app.get('/', function(req, res) { res.render('login'); });
 
 // protected routes
-app.get('/pushit', function (req, res) { res.render('pushit', { title: 'Pushit'}); });
+app.get('/pushit', passport.authenticate('google'), function (req, res) {
+    res.render('pushit', { title: 'Pushit'});
+});
 
 // tracking
 app.post('/track', function (req, res) {
@@ -31,9 +33,9 @@ app.post('/track', function (req, res) {
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/pushit');
   });
 
 // start the server
