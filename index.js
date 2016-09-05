@@ -1,13 +1,15 @@
 var winston = require('winston');
 var express = require('express');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var passport = require('passport');
 var app = express();
 
 // set up passport for authentication
 require('./auth/serializers');
 require('./auth/google');
-app.use(express.cookieParser());
-app.use(express.session({ secret: '6c5b4419-aa12-4f3f-b51b-e1ec7ea5bbee' }));
+app.use(cookieParser());
+app.use(session({ secret: '6c5b4419-aa12-4f3f-b51b-e1ec7ea5bbee' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
