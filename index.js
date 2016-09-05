@@ -20,7 +20,7 @@ app.get('/', function(req, res) { res.render('login'); });
 
 // protected routes
 app.get('/pushit',
-  passport.authenticate('google', {scope: ['profile', 'email']})
+  passport.authenticate('google', { scope: ['profile', 'email'] }),
   function (req, res) {
     res.render('pushit', { title: 'Pushit'});
 });
