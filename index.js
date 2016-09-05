@@ -19,7 +19,9 @@ app.set('view engine', 'pug');
 app.get('/', function(req, res) { res.render('login'); });
 
 // protected routes
-app.get('/pushit', passport.authenticate('google'), function (req, res) {
+app.get('/pushit',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
+  function (req, res) {
     res.render('pushit', { title: 'Pushit'});
 });
 
