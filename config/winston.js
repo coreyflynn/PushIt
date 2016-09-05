@@ -7,6 +7,8 @@ var options = {
   level: 'info'
 }
 
-winston.add(slackWinston, options)
+if (process.env.LOG_TO_SLACK === 'true') {
+  winston.add(slackWinston, options);
+}
 
 module.exports = winston;

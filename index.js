@@ -41,7 +41,7 @@ app.get('/pushit',
 
 // tracking
 app.post('/track', function (req, res) {
-  winston.info(req.body.user + ' Pushed It!', { timestamp: new Date() });
+  winston.info(req.body.user + ' Pushed It!');
   res.send('You Pushed It!');
 });
 
