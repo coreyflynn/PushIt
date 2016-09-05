@@ -11,9 +11,6 @@ passport.use(new GoogleStrategy({
     callbackURL: "https://secure-fjord-65824.herokuapp.com/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-      done(null, profile.id);
-      //  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      //    return done(err, user);
-      //  });
+      done(null, { id: profile.id });
   }
 ));

@@ -4,6 +4,7 @@ var passport = require('passport');
 var app = express();
 
 // set up passport for authentication
+require('./auth/serlializers');
 require('./auth/google');
 app.use(passport.initialize());
 
