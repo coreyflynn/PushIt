@@ -5,5 +5,5 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  done(err, { id: id });
+  done(null, { id: id });
 });
