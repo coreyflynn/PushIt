@@ -1,5 +1,5 @@
 require('dotenv').config();
-var winston = require('winston');
+var winston = require('./config/winston');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -57,5 +57,5 @@ app.get('/auth/google/callback',
 // start the server
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
-  winston.info('PushIt is listening on port ' + port);
+  console.log('listening on port ' + port);
 });

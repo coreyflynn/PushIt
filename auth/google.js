@@ -1,4 +1,4 @@
-var winston = require('winston');
+var winston = require('../config/winston');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
