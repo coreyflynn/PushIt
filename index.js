@@ -3,7 +3,9 @@ var express = require('express');
 var passport = require('passport');
 var app = express();
 
+// set up passport for authentication
 require('./auth/google');
+app.use(passport.initialize());
 
 // pull in body parser so we can respond with json when a client posts to our API
 var bodyParser = require('body-parser')
