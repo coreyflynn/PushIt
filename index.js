@@ -20,7 +20,7 @@ app.get('/', function(req, res) { res.render('login'); });
 
 // protected routes
 app.get('/pushit',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   function (req, res) {
     res.render('pushit', { title: 'Pushit'});
 });
