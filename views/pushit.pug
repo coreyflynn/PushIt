@@ -25,13 +25,12 @@ html
 
     script.
       document.getElementById('button').addEventListener('click', function(e){
-        console.log(e)
         fetch('/track', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ pushIt: true })
+          body: JSON.stringify({ user: "#{user.id}" })
         })
       })

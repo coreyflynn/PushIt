@@ -1,3 +1,4 @@
+require('dotenv').config();
 var winston = require('winston');
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -9,7 +10,11 @@ var app = express();
 require('./auth/serializers');
 require('./auth/google');
 app.use(cookieParser());
-app.use(session({ secret: '6c5b4419-aa12-4f3f-b51b-e1ec7ea5bbee' }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -25,14 +30,18 @@ app.get('/', function(req, res) { res.render('login'); });
 
 // protected routes
 app.get('/pushit',
-  passport.authenticate('google', { scope: ['profile', 'email'] }),
+  // passport.authenticate('google', { scope: ['profile', 'email'] })),
   function (req, res) {
-    res.render('pushit', { title: 'Pushit'});
+    if (!req.user) {
+      res.redirect('/');
+    } else {
+      res.render('pushit', { title: 'Pushit', user: req.user });
+    }
 });
 
 // tracking
 app.post('/track', function (req, res) {
-  winston.info('Somebody Pushed It!', req.body);
+  winston.info(req.body.user + ' Pushed It!', { timestamp: new Date() });
   res.send('You Pushed It!');
 });
 

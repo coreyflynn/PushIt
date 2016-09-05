@@ -1,3 +1,4 @@
+var winston = require('winston');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -8,9 +9,10 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://secure-fjord-65824.herokuapp.com/auth/google/callback"
+    callbackURL: process.env.GOOGLE_CALLBACK_URL + "/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-      done(null, { id: profile.id });
+      winston.info(profile.displayName + ' logged in', { timestamp: new Date() });
+      done(null, { id: profile.displayName });
   }
 ));
