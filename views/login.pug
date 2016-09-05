@@ -1,5 +1,30 @@
 html
   head
     title login
+    style.
+      body {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #cecece;
+        opacity: 0.8;
+        transition: opacity 100ms;
+      }
+      .link:hover {
+        opacity: 1;
+      }
+      img {
+        height: 50px;
+        width: 50px;
+        margin-right: 10px;
+      }
   body
-    a(href="/auth/google") Sign In with Google
+    a.link(href="/auth/google")
+      img(src="https://lh3.googleusercontent.com/DKoidc0T3T1KvYC2stChcX9zwmjKj1pgmg3hXzGBDQXM8RG_7JjgiuS0CLOh8DUa7as=w300")
+      h2.loginText Log in with Google

@@ -41,8 +41,8 @@ app.get('/pushit',
 
 // tracking
 app.post('/track', function (req, res) {
-  winston.info(req.body.user + ' Pushed It!');
-  res.send('You Pushed It!');
+  winston.info([req.body.user, req.body.state, 'it!'].join(' '));
+  res.send(['You', req.body.state, 'it!'].join(' '));
 });
 
 // authentication routes

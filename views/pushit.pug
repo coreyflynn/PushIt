@@ -3,34 +3,50 @@ html
     title= title
     style.
       body {
+        background-color: black;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      button, button:hover, button:focus {
-        display: inline-block;
-        padding: 15px 30px;
-        border: 2px solid #3D474E;
-        color: #3D474E;
-        text-decoration: none;
-        margin: 0px 10px 10px 0;
-        transition: all .6s;
-        min-width: 100px;
-        text-align: center;
+      #pin {
         cursor: pointer;
-        outline: none;
+      }
+      .pulled {
+        transform: translate(21px, 0px);
+        -webkit-transform: translate(21px, 0px);
+        -transition: transform 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      .pushed {
+        transform: translate(21px, 40px);
+        -webkit-transform: translate(21px, 40px);
+        -transition: transform 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
       }
   body
-    button(id="button") Push It
+    svg(id="pushit" width="89px" height="160px" viewBox="0 0 89 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+        title Push Pin
+        g(id="Group")
+            rect(id="board" fill="#cecece" x="0" y="100" width="89" height="29")
+            g(id="pin" class="pulled")
+                path(d="M0.216822251,50.8163216 C0.216822251,50.8163216 -1.48393541,33.9759421 23.2636068,34.0926646 C48.011149,34.2093872 46.2654373,50.6089025 46.2654373,50.6089025 L0.216822251,50.8163216 Z" id="Path" fill="#cecece")
+                path(d="M3.32968592,48.8071956 C3.32968592,48.8071956 3.42710132,44.6439129 6.5675531,41.1985429 C9.70800489,37.7531729 14.9309589,36.5249098 14.9309589,36.5249098 C14.9309589,36.5249098 12.6272937,38.3834574 11.9580834,41.7230057 C11.2888731,45.0625539 12.2384541,48.8280953 12.2384541,48.8280953 L3.32968592,48.8071956 Z" id="Path-2" fill="#000000")
+                polygon(id="Path-3" fill="#cecece" points="21.5577228 52.7292304 24.6694035 52.6984724 23.5201048 85.5413596 22.4734253 85.5475351")
+                path(d="M22.9982116,0.503264094 L36.5252733,0.497857871 C36.5252733,0.497857871 36.6506018,3.33229895 34.9659518,6.04413841 C33.2813018,8.75597788 31.4804218,8.61873018 31.4804218,8.61873018 L22.9982116,8.57676127 L14.5160014,8.61873018 C14.5160014,8.61873018 12.7151214,8.75597788 11.0304714,6.04413841 C9.34582146,3.33229895 9.47114998,0.497857871 9.47114998,0.497857871 L22.9982116,0.503264094 Z" id="Combined-Shape" fill="#cecece")
+                path(d="M14.6269374,10.4677262 L31.5466383,10.456994 L31.5989816,32.687284 C31.5989816,32.687284 27.965497,31.5614932 23.4757854,31.5242452 C18.9860739,31.4869973 14.4868531,32.5453168 14.4868531,32.5453168 L14.6269374,10.4677262 Z" id="Path-5" fill="#cecece")
+                path(d="M33.153708,3.01818642 L32.9698741,3.00339404 C32.4216193,2.95927817 32.0650442,3.35028495 31.9375141,3.88145812 C31.9375141,3.88145812 32.3475242,3.38694993 31.5829079,4.54318193 C30.8182916,5.69941393 30,6.14983668 30,6.14983668 C30,6.14983668 31.6259286,6.27319498 32.9963347,5.3922139 C34.3667408,4.51123282 34.3785327,3.11674316 34.3785327,3.11674316 L33.153708,3.01818642 Z" id="Path-6" fill="#000000")
+                path(d="M17.1986394,12.7339408 L19.3180296,12.6574095 L19.2094512,29.2312216 C19.2094512,29.2312216 18.6597577,29.3484079 18.1010154,29.519264 C17.5422731,29.6901202 16.9208418,29.8878637 16.9208418,29.8878637 L17.1986394,12.7339408 Z" id="Path-7" fill="#000000")
 
     script.
-      document.getElementById('button').addEventListener('click', function(e){
+      document.getElementById('pin').addEventListener('click', function(){
+        var pin = document.getElementById('pin')
+        pin.setAttribute('class', (pin.className.baseVal === 'pushed') ? 'pulled' : 'pushed')
         fetch('/track', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ user: "#{user.id}" })
+          body: JSON.stringify({ user: "#{user.id}", state: pin.className.baseVal })
         })
       })
