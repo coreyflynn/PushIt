@@ -9,5 +9,11 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://secure-fjord-65824.herokuapp.com/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+      done(null, profile.id);
+      //  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      //    return done(err, user);
+      //  });
   }
 ));
