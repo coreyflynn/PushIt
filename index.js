@@ -19,6 +19,7 @@ app.post('/track', function (req, res) {
   res.send('You Pushed It!');
 });
 
-app.listen(3000, function () {
-  winston.info('PushIt is listening on port 3000!');
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  winston.info('PushIt is listening on port ' + port);
 });
